@@ -19,7 +19,7 @@ class MyAppState extends State<MyApp>
 {
   var _questionsIndex = 0;
 
-  var questions = [
+ static const questions = [
 
     {
       'questionTextKey': "What\'s your favorite color ? ",
@@ -41,18 +41,24 @@ class MyAppState extends State<MyApp>
       'answersKey ': ['Germany', 'Spain', 'England', 'Italy'],
     },
 
+   {
+     'questionTextKey': "What\'s your favorite country ? ",
+     'answersKey ': ['Germany', 'Spain', 'England', 'Italy'],
+   },
 
 
-  ];
+
+ ];
 
   //function with a state method that changes the index based on the current state.
   void answerQuestion(){
 
-    setState(() {
+        setState(() {
 
-      _questionsIndex  = _questionsIndex + 1;
-    });
-    print('I was pressed');
+          _questionsIndex  = _questionsIndex + 1;
+        });
+        print('I was pressed');
+
 
   }
 
@@ -65,19 +71,23 @@ class MyAppState extends State<MyApp>
           title: Text("My First App"),
 
         ),
-        body: Column(
+        body:_questionsIndex <= questions.length ? Column(
 
           children: [
             Question(
             questions[_questionsIndex]['questionTextKey'],
             ),
 
-            ...(questions[_questionsIndex]['answersKey'] as List<String>).map((tempQuestion)  {
+            ...(questions[_questionsIndex]['answersKey'] as List<String>).map((answer)  {
 
-              return Answer(answerQuestion, tempQuestion);
+              return Answer(answerQuestion, answer);
             }).toList()
           ],
 
+        ) : 
+        Center(
+          child: Text("You did it "),
+          
         ),
       ),
     );
