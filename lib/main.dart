@@ -69,11 +69,13 @@ class MyAppState extends State<MyApp>
 
           children: [
             Question(
-            questions[_questionsIndex]['questionTextKey']
+            questions[_questionsIndex]['questionTextKey'],
             ),
-            Answer(answerQuestion),
-            Answer(answerQuestion),
-            Answer(answerQuestion),
+
+            ...(questions[_questionsIndex]['answersKey'] as List<String>).map((tempQuestion)  {
+
+              return Answer(answerQuestion, tempQuestion);
+            }).toList()
           ],
 
         ),
